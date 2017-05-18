@@ -1,0 +1,24 @@
+---
+foreman_installer_pkg: foreman-installer
+foreman_installer_verbose: False
+foreman_installer_scenario: foreman
+foreman_installer_options: []
+
+
+# Hash of Custom answers
+#installer_scenarios_answers:
+#  foreman:
+#    admin_password: changeme
+
+
+## Custom Certs. Katello only
+#katello_ca: 
+#katello_cert:
+#katello_key:
+#katello_csr:
+katello_certs_dir: /root/certs
+update_certs: False
+
+
+## Internal Only
+dont_save_answers: True

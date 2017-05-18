@@ -1,0 +1,25 @@
+---
+- name: Check Scenario isn't being changed
+  fail:
+    msg: Currently we cannot change to a different Scenario.
+  when: 
+    - ansible_local.foreman_installer.last_scenario is defined
+    - ansible_local.foreman_installer.last_scenario != foreman_installer_scenario
+
+- name: run notified handlers
+  meta: flush_handlers
+
+- include: "certs.yml"
+  when: katello_cert is defined and foreman_installer_scenario == 'katello'
+
+- name: "Write /etc/foreman-installer/scenarios.d/{{ foreman_installer_scenario }}-answers.yaml"
+  template:
+    src: templates/scenario-answers.yaml.j2
+    dest: "/etc/foreman-installer/scenarios.d/{{ foreman_installer_scenario }}-answers.yaml"
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - reload ansible_local
+    - rewrite answers file
+    - execute foreman-installer

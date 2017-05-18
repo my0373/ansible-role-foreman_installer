@@ -1,0 +1,8 @@
+---
+- name: "Install {{ foreman_installer_pkg }}"
+  yum:
+    name: "{{ foreman_installer_pkg }}"
+    state: present
+  notify:
+    - reload ansible_local
+    - 'set dont_save_answers to False'

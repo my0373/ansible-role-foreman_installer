@@ -1,0 +1,6 @@
+---
+- include: "packages.yml"
+
+- include: "facts.yml"
+
+- include: "installer.yml"
